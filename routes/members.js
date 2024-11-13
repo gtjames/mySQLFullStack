@@ -8,7 +8,7 @@ var dbConn = require('../lib/db');         //  yes, this is our connection varia
 router.get('/', (req, res, next) => {
     //  We are just using plain old SQL to hit the database.
     //                                                  OH LOOK! a callback function
-    dbConn.query('SELECT * FROM wardList ORDER BY last, first', (err, rows) => {
+    dbConn.query('SELECT * FROM wardclerk.wardList ORDER BY last, first', (err, rows) => {
         if (err) {
             req.flash('error', err);
             // render to views/members/index.ejs
@@ -21,7 +21,7 @@ router.get('/', (req, res, next) => {
 });
 
 router.get('/get/(:id)', (req, res, next) => {
-    dbConn.query('SELECT * FROM wardList ORDER BY last, first', (err, rows) => {
+    dbConn.query('SELECT * FROM wardclerk.wardList ORDER BY last, first', (err, rows) => {
         if (err) {
             res.send({ data: err });          //  notice all data back to the client is in a JSON object
         } else {
@@ -55,7 +55,7 @@ router.post('/add', function (req, res, next) {
         // insert query
         //      calling the database                        and waiting for the callback results over here
         req.body.name = `${req.body.last}, ${req.body.first}`;
-        dbConn.query('INSERT INTO wardList SET ?', req.body, (err, result) => {
+        dbConn.query('INSERT INTO wardclerk.wardList SET ?', req.body, (err, result) => {
             if (err) {
                 req.flash('error', err)
                 res.render('members/add', req.body);        // render to add.ejs
@@ -69,7 +69,7 @@ router.post('/add', function (req, res, next) {
 
 // display edit member page
 router.get('/edit/(:id)', function (req, res, next) {
-    dbConn.query(`SELECT * FROM wardList WHERE id = ${req.params.id}`, (err, rows, fields) => {
+    dbConn.query(`SELECT * FROM wardclerk.wardList WHERE id = ${req.params.id}`, (err, rows, fields) => {
         if (err) throw err
 
         // if user not found
@@ -94,7 +94,7 @@ router.post('/update/:id', (req, res, next) => {
         res.render('members/edit', req.body );  // render to add.ejs with flash message
     } else {            // if no error
         // update query
-        dbConn.query('UPDATE wardList SET ? WHERE id = ' + req.params.id, req.body, (err, result) => {
+        dbConn.query('UPDATE wardclerk.wardList SET ? WHERE id = ' + req.params.id, req.body, (err, result) => {
             if (err) {
                 req.flash('error', err);            // set flash message
                 res.render('members/edit', req.body );  // render to edit.ejs
@@ -108,7 +108,7 @@ router.post('/update/:id', (req, res, next) => {
 
 // delete member
 router.get('/delete/(:id)', (req, res, next) => {
-    dbConn.query(`DELETE FROM wardList WHERE id = ${req.params.id}`, (err, result) => {
+    dbConn.query(`DELETE FROM wardclerk.wardList WHERE id = ${req.params.id}`, (err, result) => {
         if (err) {
             req.flash('error', `${err.sqlMessage} -- ${err.sql}`);      // set flash message
         } else {
@@ -121,7 +121,7 @@ router.get('/delete/(:id)', (req, res, next) => {
 // search wardList
 router.post('/search', function (req, res, next) {
     dbConn.query(
-        `SELECT * FROM wardList WHERE ${req.body.attrib} like '%${req.body.search}%'`, (err, rows) => {
+        `SELECT * FROM wardclerk.wardList WHERE ${req.body.attrib} like '%${req.body.search}%'`, (err, rows) => {
             if (err) {
                 req.flash('error', err);
                 res.render('members', { data: '' });

@@ -10,7 +10,7 @@ router.get('/', function(req, res, next) {
     //  We are just using plain old SQL to hit the database.
     //                                                  OH LOOK! a callback function
     dbConn.query('SELECT CrimeId, ComplaintNum, ReportDate, OffenseDesc, Borough, PremiseType ' +
-        ' FROM crimes ' +
+        ' FROM examples.crimes ' +
         ' ORDER BY ReportDate desc' +
         ' limit 100',
         function(err,rows)     {
@@ -72,7 +72,7 @@ router.post('/add', function(req, res, next) {
 
         // insert query
         //      calling the database                        and waiting for the callback results over here
-        dbConn.query('INSERT INTO crimes SET ?', form_data, function(err, result) {
+        dbConn.query('INSERT INTO examples.crimes SET ?', form_data, function(err, result) {
             //if(err) throw err
             if (err) {
                 req.flash('error', err)
@@ -98,7 +98,7 @@ router.get('/edit/(:id)', function(req, res, next) {
 
     let id = req.params.id;
 
-    dbConn.query('SELECT CrimeId, ComplaintNum, ReportDate, OffenseDesc, Borough, PremiseType FROM crimes WHERE CrimeId = ' + id, function(err, rows, fields) {
+    dbConn.query('SELECT CrimeId, ComplaintNum, ReportDate, OffenseDesc, Borough, PremiseType FROM examples.crimes WHERE CrimeId = ' + id, function(err, rows, fields) {
         if(err) throw err
 
         // if user not found
@@ -154,7 +154,7 @@ router.post('/update/:id', function(req, res, next) {
         }
 
         // update query
-        dbConn.query('UPDATE crimes SET ? WHERE CrimeId = ' + CrimeId, form_data, function(err, result) {
+        dbConn.query('UPDATE examples.crimes SET ? WHERE CrimeId = ' + CrimeId, form_data, function(err, result) {
             //if(err) throw err
             if (err) {
                 // set flash message
@@ -181,7 +181,7 @@ router.get('/delete/(:id)', function(req, res, next) {
 
     let id = req.params.id;
 
-    dbConn.query('DELETE FROM crimes WHERE CrimeId = ' + id, function(err, result) {
+    dbConn.query('DELETE FROM examples.crimes WHERE CrimeId = ' + id, function(err, result) {
         //if(err) throw err
         if (err) {
             // set flash message
@@ -203,7 +203,7 @@ router.post('/search', function(req, res, next) {
 
     dbConn.query(
         `SELECT CrimeId, ComplaintNum, ReportDate, OffenseDesc, Borough, PremiseType
-         FROM crimes
+         FROM examples.crimes
          WHERE ${column} like '%${value}%'
          ORDER BY ReportDate desc
          limit 100`,

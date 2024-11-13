@@ -9,7 +9,7 @@ router.get('/', function(req, res, next) {
 
     //  We are just using plain old SQL to hit the database.
     //                                                  OH LOOK! a callback function
-    dbConn.query('SELECT * FROM books ORDER BY id desc',function(err,rows)     {
+    dbConn.query('SELECT * FROM examples.books ORDER BY id desc',function(err,rows)     {
 
         if(err) {
             req.flash('error', err);
@@ -55,7 +55,7 @@ router.post('/add', function(req, res, next) {
 
         // insert query
         //      calling the database                        and waiting for the callback results over here
-        dbConn.query('INSERT INTO books SET ?', form_data, function(err, result) {
+        dbConn.query('INSERT INTO examples.books SET ?', form_data, function(err, result) {
             //if(err) throw err
             if (err) {
                 req.flash('error', err)
@@ -78,7 +78,7 @@ router.get('/edit/(:id)', function(req, res, next) {
 
     let id = req.params.id;
 
-    dbConn.query('SELECT * FROM books WHERE id = ' + id, function(err, rows, fields) {
+    dbConn.query('SELECT * FROM examples.books WHERE id = ' + id, function(err, rows, fields) {
         if(err) throw err
 
         // if user not found
@@ -119,7 +119,7 @@ router.post('/update/:id', function(req, res, next) {
         var form_data = { name: name, author: author };
 
         // update query
-        dbConn.query('UPDATE books SET ? WHERE id = ' + id, form_data, function(err, result) {
+        dbConn.query('UPDATE examples.books SET ? WHERE id = ' + id, form_data, function(err, result) {
             //if(err) throw err
             if (err) {
                 // set flash message
@@ -143,7 +143,7 @@ router.get('/delete/(:id)', function(req, res, next) {
 
     let id = req.params.id;
 
-    dbConn.query('DELETE FROM books WHERE id = ' + id, function(err, result) {
+    dbConn.query('DELETE FROM examples.books WHERE id = ' + id, function(err, result) {
         //if(err) throw err
         if (err) {
             // set flash message
@@ -165,7 +165,7 @@ router.post('/search', function(req, res, next) {
 
     dbConn.query(
         `SELECT *
-         FROM books
+         FROM examples.books
          WHERE ${column} like '%${value}%'
          limit 100`,
         function(err,rows)     {
