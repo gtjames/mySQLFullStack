@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Add a Titanic Passenger</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body class="container" style="margin-top: 50px;">
+
+<% if (messages.error) { %>
+    <div class="alert alert-danger" role="alert"><%- messages.error %></div>
+<% } %>
+
+<div class="card">
+    <div class="card-header">
+        Add Passenger
+    </div>
+    <div class="card-body">
+        <form action="/titanic/add" method="post">
+            <div class="form-group"> <label>Last Name:        </label>  <input type="text" class="form-control" name="lastName"        value="<%= lastName %>"        autocomplete="off"> </div>
+            <div class="form-group"> <label>First Name:       </label>  <input type="text" class="form-control" name="firstName"       value="<%= firstName %>"       autocomplete="off"> </div>
+            <div class="form-group"> <label>Age:              </label>  <input type="text" class="form-control" name="age"             value="<%= age %>"             autocomplete="off"> </div>
+            <div class="form-group"> <label>Class:            </label>  <input type="text" class="form-control" name="class"           value="<%= class %>"           autocomplete="off"> </div>
+            <div class="form-group"> <label>Passenger or Crew:</label>  <input type="text" class="form-control" name="passengerOrCrew" value="<%= passengerOrCrew %>" autocomplete="off"> </div>
+            <div class="form-group"> <label>Role:             </label>  <input type="text" class="form-control" name="role"            value="<%= role %>"            autocomplete="off"> </div>
+            <div class="form-group"> <label>Survivor:         </label>  <input type="text" class="form-control" name="survivor"        value="<%= survivor %>"        autocomplete="off"> </div>
+                <a class="btn btn-success edit" href="/titanic/">Cancel</a>
+                <input type="submit" class="btn btn-info" value="Add"/>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

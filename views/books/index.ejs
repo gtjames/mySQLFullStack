@@ -24,7 +24,7 @@
             </li>
             <form action="/books/search" method="post">
                 <select name="attrib" id="attrib">
-                    <option value="name">Book Title</option>
+                    <option value="title">Book Title</option>
                     <option value="author">Author</option>
                 </select>
                 <input id="search" name="search" type="text">
@@ -41,7 +41,7 @@
                 <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Name</th>
+                    <th scope="col">Title</th>
                     <th scope="col">Author</th>
                     <th width="200px">Action</th>
                 </tr>
@@ -50,7 +50,7 @@
                 <% for(var i = 0; i< data.length; i++) { %>
                     <tr>
                         <th scope="row"><%= (i+1) %></th>
-                        <td><%= data[i].name.toUpperCase()%></td>
+                        <td><%= data[i].title%></td>
                         <td><%= data[i].author%></td>
                         <td>
                             <a class="btn btn-success edit" href="../books/edit/<%=data[i].id%>">Edit</a>
