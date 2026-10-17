@@ -11,7 +11,7 @@ var router = express.Router();
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  let token = "10706~1r7OxhF6t3ksuV4w8HVWN6e4LYwcYuXaqLl3pC0cH9TKcll6NEYDxYOi6thAm1Z2";
+  let token = "";
 
   let url = `https://${req.query.edu}.instructure.com/api/v1/courses/${req.query.course}/students`;
   console.log(url);
