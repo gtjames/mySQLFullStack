@@ -12,11 +12,10 @@ router.get('/', (req, res, next) => {
 // display add page
 //      URL:            /{object}/add
 router.get('/add', (req, res, next) => {
-    let table = req.baseUrl.replace('/','');        //  this is a little trick to get the table name from the URL.  We are using the same code for all tables
-
+    let table = req.baseUrl.replace('/','');
     // render to add.ejs
     res.render(`${table}/add`, {    //  no data because we are adding a new record
-        id: 0, lastName: '', firstName: '', age: '', class: '',
+        id: 0, lastName: '', firstName: '', age: '', paxClass: '',
         passengerOrCrew: '', role: '', survivor: '', gender: ''
     });
 })
