@@ -37,18 +37,23 @@ router.get('/add', function(req, res, next) {
 router.post('/add', function(req, res, next) {
 
     let title = req.body.title;           //  the body object from the client contains our data
+    let title = req.body.title;           //  the body object from the client contains our data
     let author = req.body.author;
 
     if(title.length === 0 || author.length === 0) {      //  not so fast. If you didn't enter anything we are not going to add that
+    if(title.length === 0 || author.length === 0) {      //  not so fast. If you didn't enter anything we are not going to add that
         // set flash message
         req.flash('error', "Please enter title and author");
+        req.flash('error', "Please enter author and title");
         // render to add.ejs with flash message
         res.render('books/add', {
+            title: title,     //  notice we return the data we did get. So if one of these is filled in
             title: title,     //  notice we return the data we did get. So if one of these is filled in
             author: author  //  then it will get displayed back on the page
         })
     }   else {                  // if no error
         var form_data = {
+            title: title,
             title: title,
             author: author
         }
@@ -64,6 +69,8 @@ router.post('/add', function(req, res, next) {
                 res.render('books/add', {
                     title: form_data.title,
                     author: form_data.author
+                    author: form_data.author,
+                    title: form_data.title
                 })
             } else {
                 req.flash('success', 'Book successfully added');
@@ -94,6 +101,8 @@ router.get('/edit/(:id)', function(req, res, next) {
                 id: rows[0].id,
                 title: rows[0].title,
                 author: rows[0].author
+                author: rows[0].author,
+                title: rows[0].title
             })
         }
     })
@@ -105,18 +114,24 @@ router.post('/update/:id', function(req, res, next) {
     let id = req.params.id;
     let title = req.body.title;
     let author = req.body.author;
+    let title = req.body.title;
 
     if(title.length === 0 || author.length === 0) {
+    if(title.length === 0 || author.length === 0) {
         // set flash message
+        req.flash('error', "Please enter title and author");
         req.flash('error', "Please enter title and author");
         // render to add.ejs with flash message
         res.render('books/edit', {
             id: req.params.id,
             title: title,
             author: author
+            author: author,
+            title: title
         })
     } else {            // if no error
         var form_data = { title: title, author: author };
+        var form_data = { author: author, title: title };
 
         // update query
         dbConn.query('UPDATE examples.books SET ? WHERE id = ' + id, form_data, function(err, result) {
@@ -129,6 +144,8 @@ router.post('/update/:id', function(req, res, next) {
                     id: req.params.id,
                     title: form_data.title,
                     author: form_data.author
+                    author: form_data.author,
+                    title: form_data.title
                 })
             } else {
                 req.flash('success', 'Book successfully updated');
