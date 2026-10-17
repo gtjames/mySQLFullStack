@@ -22,6 +22,12 @@
             <li class="nav-pill active">
                 <a class="nav-link">Crimes</a>
             </li>
+            <li class="nav-pill">
+                <a class="nav-link" href="/">Home</a>
+            </li>
+            <li class="nav-pill">
+                <a class="nav-link" href="/crimes">All Crimes</a>
+            </li>
             <li>
                 <form action="/crimes/search" method="post">
                     <select name="attrib" id="attrib">
@@ -61,8 +67,8 @@
                         <td><%= data[i].Borough%></td>
                         <td><%= data[i].PremiseType%></td>
                         <td>
-                            <a class="btn btn-success edit" href="../crimes/edit/<%=data[i].CrimeId%>">Edit</a>
-                            <a class="btn btn-danger delete" onclick="return alert('Are You sure?')" href="../crimes/delete/<%=data[i].CrimeId%>">Delete</a>
+                            <a class="btn btn-success edit" href="../crimes/edit/<%=data[i].id%>">Edit</a>
+                            <a class="btn btn-danger delete" onclick="return alert('Are You sure?')" href="../crimes/delete/<%=data[i].id%>">Delete</a>
                         </td>
                     </tr>
                 <% } %>

@@ -22,6 +22,12 @@
             <li class="nav-pill active">
                 <a class="nav-link">Books</a>
             </li>
+            <li class="nav-pill">
+                <a class="nav-link" href="/">Home</a>
+            </li>
+            <li class="nav-pill">
+                <a class="nav-link" href="/books">All Books</a>
+            </li>
             <form action="/books/search" method="post">
                 <select name="attrib" id="attrib">
                     <option value="title">Book Title</option>
@@ -43,7 +49,6 @@
                     <th scope="col">#</th>
                     <th scope="col">Title</th>
                     <th scope="col">Author</th>
-                    <th scope="col">Title</th>
                     <th width="200px">Action</th>
                 </tr>
                 </thead>
@@ -53,7 +58,6 @@
                         <th scope="row"><%= (i+1) %></th>
                         <td><%= data[i].title%></td>
                         <td><%= data[i].author%></td>
-                        <td><%= data[i].title.toUpperCase()%></td>
                         <td>
                             <a class="btn btn-success edit" href="../books/edit/<%=data[i].id%>">Edit</a>
                             <a class="btn btn-danger delete" onclick="return alert('Are You sure?')" href="../books/delete/<%=data[i].id%>">Delete</a>

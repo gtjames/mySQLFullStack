@@ -2,9 +2,9 @@ DROP DATABASE   IF     EXISTS examples;
 CREATE DATABASE IF NOT EXISTS examples;
 
 USE examples;
-
+drop table crimes;
 CREATE TABLE crimes (
-  CrimeId             INT NOT NULL AUTO_INCREMENT,
+  id                  INT NOT NULL AUTO_INCREMENT,
   ComplaintNum        int NOT NULL,
   FromDate            varchar(30) DEFAULT NULL,
   FromTime            time        DEFAULT NULL,
@@ -29,11 +29,13 @@ CREATE TABLE crimes (
   Latitude            decimal(14,9) DEFAULT NULL,
   Longitude           decimal(14,9) DEFAULT NULL,
   Lat_Lon             varchar(60) DEFAULT NULL,
-  PRIMARY KEY (CrimeId)
-) ENGINE=InnoDB DEFAULT;
+  PRIMARY KEY (id)
+);
 
 --
 -- 
+truncate table crimes;
+
 LOAD DATA LOCAL INFILE '/Users/garyjames/Documents/MyProjects/Node-MySQL/lib/100K.CSV'
 INTO TABLE crimes
 FIELDS TERMINATED BY ',' 
@@ -41,11 +43,11 @@ ENCLOSED BY '"'
 LINES TERMINATED BY '\n'
 IGNORE 1 lines
 (ComplaintNum, @FromDate, FromTime, @ToDate, ToTime, @ReportDate, KeyCode, OffenseDesc, PDCode, Description, CRM_ATPT_CPTD_CD, LawCatCode, Jurisdiction, Borough, ADDR_PCT_CD, LocationOfOccurance, PremiseType, ParksName, HADEVELOPT, XCoord, YCoord, Latitude, Longitude, Lat_Lon)
-set ReportDate = STR_TO_DATE(IFNULL(@ReportDate,""), '%m/%d/%Y'),
-    FromDate   = STR_TO_DATE(IFNULL(@FromDate,""),   '%m/%d/%Y'),
-    ToDate     = STR_TO_DATE(IFNULL(@ToDate,""),     '%m/%d/%Y');
-
-
+SET ReportDate = STR_TO_DATE(NULLIF(@ReportDate, '0'), '%m/%d/%Y'),
+    FromDate   = STR_TO_DATE(NULLIF(@FromDate,   '0'), '%m/%d/%Y'),
+    ToDate     = STR_TO_DATE(NULLIF(@ToDate,     '0'), '%m/%d/%Y');
+    
+    
 -- let's get all of the data loaded then add the indexes
 ALTER TABLE `examples`.`crimes`
 ADD INDEX `idx_Borough` (`Borough` ASC),

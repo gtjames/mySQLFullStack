@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var dbConn = require('../lib/db');         //  yes, this is our connection variable from the db.js file
+var {getRows, dbConn}  = require('../lib/db');         //  yes, this is our connection variable from the db.js file
 
 //  display members page when the url is "members/"
 //  remember back in app.js we defined all /members requests would come here
@@ -8,7 +8,7 @@ var dbConn = require('../lib/db');         //  yes, this is our connection varia
 router.get('/', (req, res, next) => {
     //  We are just using plain old SQL to hit the database.
     //                                                  OH LOOK! a callback function
-    dbConn.query('SELECT * FROM wardclerk.wardList ORDER BY last, first', (err, rows) => {
+    dbConn.query('SELECT * FROM examples.wardList ORDER BY last, first', (err, rows) => {
         if (err) {
             req.flash('error', err);
             // render to views/members/index.ejs
@@ -36,9 +36,9 @@ router.get('/add', function (req, res, next) {
     // render to add.ejs
     res.render('members/add', {  //  no data because we are adding a new member
         id: 0, first: '', last: '', address1: '', address2: '', zip: '', city: '',
-        gender: '', age: 0, birthday: '', minBros: '', minSiss: '', 
-        email: '', phone: '', institute: '', convert: '', endowed: '', RM: '', 
-        movedIn: '', priesthood: '', recExpire: '', recStatus: '', recType: '', 
+        gender: '', age: 0, birthday: '', minBros: '', minSiss: '',
+        email: '', phone: '', institute: '', convert: '', endowed: '', RM: '',
+        movedIn: '', priesthood: '', recExpire: '', recStatus: '', recType: '',
         notes: '', lat: '', long: ''
     });
 })
