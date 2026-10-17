@@ -26,41 +26,42 @@
                 <a class="nav-link" href="/">Home</a>
             </li>
             <li class="nav-pill">
-                <a class="nav-link" href="/books">All Books</a>
+                <a class="nav-link" href="/<%= table %>">All Books</a>
             </li>
-            <form action="/books/search" method="post">
+            <form action="/<%= table %>/search" method="post">
                 <select name="attrib" id="attrib">
-                    <option value="title">Book Title</option>
-                    <option value="author">Author</option>
+                <% for(var i = 0; i < fields.length; i++) { %>
+                    <option value="<%= fields[i].name %>"><%= fields[i].text %></option >
+                <% } %>
                 </select>
                 <input id="search" name="search" type="text">
             </form>
             <li class="nav-pill ml-auto">
-                <a class="nav-link active" href="/books/add">Add Book</a>
+                <a class="nav-link active" href="/<%=table%>/add">Add Book</a>
             </li>
         </ul>
     </div>
     <div class="card-body">
 
         <% if(data.length) { %>
-            <table class="table">
+            <table class="table sortable table-hover table-striped">
                 <thead>
                 <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Title</th>
-                    <th scope="col">Author</th>
-                    <th width="200px">Action</th>
+                <% for(var i = 0; i< fields.length; i++) { %>
+                    <th scope="col"><%= fields[i].text %></th>
+                <% } %>
                 </tr>
                 </thead>
                 <tbody>
                 <% for(var i = 0; i< data.length; i++) { %>
                     <tr>
-                        <th scope="row"><%= (i+1) %></th>
-                        <td><%= data[i].title%></td>
-                        <td><%= data[i].author%></td>
+                        <!-- <th scope="row"><%= (i+1) %></th> -->
+                        <% for(var j = 0; j< fields.length; j++) { %>
+                            <td><%= data[i][fields[j].name]%></td>
+                        <% } %>
                         <td>
-                            <a class="btn btn-success edit" href="../books/edit/<%=data[i].id%>">Edit</a>
-                            <a class="btn btn-danger delete" onclick="return alert('Are You sure?')" href="../books/delete/<%=data[i].id%>">Delete</a>
+                            <a class="btn btn-success edit" href="/<%=table%>/edit/<%=data[i].id%>">Edit</a>
+                            <a class="btn btn-danger delete" onclick="return alert('Are You sure?')" href="/<%=table%>/delete/<%=data[i].id%>">Delete</a>
                         </td>
                     </tr>
                 <% } %>
@@ -70,11 +71,12 @@
 
         <!-- if result is empty -->
         <% if(!data.length) { %>
-            <p class="text-center">No book found!</p>
+            <p class="text-center">No Records found!</p>
         <% } %>
 
     </div>
 </div>
 
 </body>
+  <script src="../../js/sortable.js"></script>
 </html>

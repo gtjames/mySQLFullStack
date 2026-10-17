@@ -17,33 +17,22 @@
         Add Crime
     </div>
     <div class="card-body">
-        <form action="/crimes/add" method="post">
+        <form action="/<%=table%>/add" method="post">
+            <% fields.forEach(field => {
+                if (field.name === 'id') return;
+            %>
             <div class="form-group">
-                <label>Complaint Num:</label>
-                <input type="text" class="form-control" name="ComplaintNum" value="<%= ComplaintNum %>" autocomplete="off">
+                <label><%= field.text %>:</label>
+                <input type="text" class="form-control" name="<%= field.name %>" value="<%= field.empty %>" autocomplete="off">
             </div>
+            <% }) %>
             <div class="form-group">
-                <label>Report Date:</label>
-                <input type="text" class="form-control" name="ReportDate" value="<%= ReportDate %>" autocomplete="off">
-            </div>
-            <div class="form-group">
-                <label>Offense Desc:</label>
-                <input type="text" class="form-control" name="OffenseDesc" value="<%= OffenseDesc %>" autocomplete="off">
-            </div>
-            <div class="form-group">
-                <label>Borough:</label>
-                <input type="text" class="form-control" name="Borough" value="<%= Borough %>" autocomplete="off">
-            </div>
-            <div class="form-group">
-                <label>Premise Type:</label>
-                <input type="text" class="form-control" name="PremiseType" value="<%= PremiseType %>" autocomplete="off">
-            </div>
-            <div class="form-group">
-                <a class="btn btn-success edit" href="/crimes/">Cancel</a>
+                <a class="btn btn-success edit" href="/<%=table%>/">Cancel</a>
                 <input type="submit" class="btn btn-info" value="Add"/>
             </div>
         </form>
     </div>
 </div>
+
 </body>
 </html>

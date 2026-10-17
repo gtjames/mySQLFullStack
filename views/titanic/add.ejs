@@ -17,15 +17,17 @@
         Add Passenger
     </div>
     <div class="card-body">
-        <form action="/titanic/add" method="post">
-            <div class="form-group"> <label>Last Name:        </label>  <input type="text" class="form-control" name="lastName"        value="<%= lastName        %>" autocomplete="off"> </div>
-            <div class="form-group"> <label>First Name:       </label>  <input type="text" class="form-control" name="firstName"       value="<%= firstName       %>" autocomplete="off"> </div>
-            <div class="form-group"> <label>Age:              </label>  <input type="text" class="form-control" name="age"             value="<%= age             %>" autocomplete="off"> </div>
-            <div class="form-group"> <label>Passenger Class:  </label>  <input type="text" class="form-control" name="paxClass"        value="<%= paxClass        %>" autocomplete="off"> </div>
-            <div class="form-group"> <label>Passenger or Crew:</label>  <input type="text" class="form-control" name="passengerOrCrew" value="<%= passengerOrCrew %>" autocomplete="off"> </div>
-            <div class="form-group"> <label>Role:             </label>  <input type="text" class="form-control" name="role"            value="<%= role            %>" autocomplete="off"> </div>
-            <div class="form-group"> <label>Survivor:         </label>  <input type="text" class="form-control" name="survivor"        value="<%= survivor        %>" autocomplete="off"> </div>
-                <a class="btn btn-success edit" href="/titanic/">Cancel</a>
+        <form action="/<%=table%>/add" method="post">
+            <% fields.forEach(field => {
+                if (field.name === 'id') return;
+            %>
+            <div class="form-group">
+                <label><%= field.text %>:</label>
+                <input type="text" class="form-control" name="<%= field.name %>" value="<%= field.empty %>" autocomplete="off">
+            </div>
+            <% }) %>
+            <div class="form-group">
+                <a class="btn btn-success edit" href="/<%=table%>/">Cancel</a>
                 <input type="submit" class="btn btn-info" value="Add"/>
             </div>
         </form>
