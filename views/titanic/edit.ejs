@@ -17,17 +17,18 @@
         Edit Titanic
     </div>
     <div class="card-body">
-        <form action="/titanic/update/<%= id %>" method="post">
+        <form action="/<%= table %>/update/<%= data.id %>" method="post">
+            <input type="hidden" name="id" value="<%= data.id %>">
+            <% fields.forEach(field => {
+                if (field.name === 'id') return;
+            %>
             <div class="form-group">
-                <label>Title:</label>
-                <input type="text" class="form-control" name="title" value="<%= title %>" autocomplete="off">
+                <label><%= field.text %>:</label>
+                <input type="text" class="form-control" name="<%= field.name %>" value="<%= data[field.name] ?? '' %>" autocomplete="off">
             </div>
+            <% }) %>
             <div class="form-group">
-                <label>Author:</label>
-                <input type="text" class="form-control" name="author" value="<%= author %>" autocomplete="off">
-            </div>
-            <div class="form-group">
-                <a class="btn btn-success edit" href="/titanic/">Cancel</a>
+                <a class="btn btn-success edit" href="/<%= table %>/">Cancel</a>
                 <input type="submit" class="btn btn-info" value="Update"/>
             </div>
         </form>
