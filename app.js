@@ -14,6 +14,7 @@ var booksRouter = require('./routes/books');
 var crimesRouter = require('./routes/crimes');
 var membersRouter = require('./routes/members');
 var titanicRouter = require('./routes/titanic');
+var testRouter = require('./routes/test');
 var proxyRouter = require('./routes/proxy');
 
 var app = express();
@@ -40,11 +41,12 @@ app.use(flash());
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/books', booksRouter);
-app.use('/crimes', crimesRouter);
 app.use('/members', membersRouter);
-app.use('/titanic', titanicRouter);
 app.use('/proxy', proxyRouter);
+
+app.use('/titanic', testRouter);  //  titanicRouter);
+app.use('/books', testRouter);  //  booksRouter);
+app.use('/crimes', testRouter);  //  crimesRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
