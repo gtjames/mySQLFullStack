@@ -8,14 +8,11 @@ var flash = require('express-flash');
 var session = require('express-session');
 var connection  = require('./lib/db');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var booksRouter = require('./routes/books');
-var crimesRouter = require('./routes/crimes');
+var indexRouter   = require('./routes/index');
+var usersRouter   = require('./routes/users');
 var membersRouter = require('./routes/members');
-var titanicRouter = require('./routes/titanic');
-var testRouter = require('./routes/test');
-var proxyRouter = require('./routes/proxy');
+var crudRouter    = require('./routes/crud');
+var proxyRouter   = require('./routes/proxy');
 
 var app = express();
 
@@ -39,30 +36,31 @@ app.use(session({
 
 app.use(flash());
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/',        indexRouter);
+app.use('/users',   usersRouter);
 app.use('/members', membersRouter);
-app.use('/proxy', proxyRouter);
+app.use('/proxy',   proxyRouter);
 
-app.use('/titanic', testRouter);  //  titanicRouter);
-app.use('/books', testRouter);  //  booksRouter);
-app.use('/crimes', testRouter);  //  crimesRouter);
+app.use('/titanic', crudRouter);    //  titanicRouter);
+app.use('/books',   crudRouter);    //  booksRouter);
+app.use('/crimes',  crudRouter);    //  crimesRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  console.log(`404: ${req.baseUrl}`);
-  next(createError(404));
+app.use((req, res, next) => {
+    console.log(`404: ${req.baseUrl}`);
+    next(createError(404));
 });
 
 // error handler
 app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+    // set locals, only providing error in development
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+    // render the error page
+    res.status(err.status || 500);
+    res.render('error');
 });
+
 console.log("http://localhost:3000");
 module.exports = app;

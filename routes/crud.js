@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var {getRows, deleteRow, searchRows, editRow, updateRow, addRow, dbConn}  = require('../lib/db');         //  yes, this is our connection variable from the db.js file
+var {getRows, searchRows, createRow, addRow, editRow, updateRow, deleteRow}  = require('../lib/db');         //  yes, this is our connection variable from the db.js file
 
 var bookFields = [
     { name: 'id',     text: 'id',     empty:0  },
@@ -48,12 +48,7 @@ router.get('/', (req, res, next) => {
 // display add page
 //      URL:            /{object}/add
 router.get('/add', (req, res, next) => {
-    let displayFields = getFields(req);
-    let table = req.baseUrl.replace('/','');
-    let upper = table.charAt(0).toUpperCase() + table.slice(1);
-
-    // render to add.ejs
-    res.render(`${table}/add`, { upper:upper, table: table, fields: displayFields });
+    createRow(req, res, next, getFields(req));
 })
 
 // add new
