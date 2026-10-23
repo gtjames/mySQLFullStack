@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title><%= upper %></title>
+    <title>Titanic</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
 <body class="container" style="margin-top: 50px;">
@@ -20,15 +20,15 @@
     <div class="card-header">
         <ul class="nav nav-pills w-100">
             <li class="nav-pill active">
-                <a class="nav-link"><%= upper %></a>
+                <a class="nav-link">Titanic</a>
             </li>
             <li class="nav-pill">
                 <a class="nav-link" href="/">Home</a>
             </li>
             <li class="nav-pill">
-                <a class="nav-link" href="/<%= table %>">All <%= upper %></a>
+                <a class="nav-link" href="/ogtitanic">All Titanic</a>
             </li>
-            <form action="/<%= table %>/search" method="post">
+            <form action="/ogtitanic/search" method="post">
                 <select name="attrib" id="attrib">
                 <% for(var i = 0; i < fields.length; i++) { %>
                     <option value="<%= fields[i].name %>"><%= fields[i].text %></option >
@@ -37,7 +37,7 @@
                 <input id="search" name="search" type="text">
             </form>
             <li class="nav-pill ml-auto">
-                <a class="nav-link active" href="/<%=table%>/add">Add <%= upper %></a>
+                <a class="nav-link active" href="/ogtitanic/add">Add Titanic</a>
             </li>
         </ul>
     </div>
@@ -60,8 +60,8 @@
                             <td><%= data[i][fields[j].name]%></td>
                         <% } %>
                         <td>
-                            <a class="btn btn-success edit" href="/<%=table%>/edit/<%=data[i].id%>">Edit</a>
-                            <a class="btn btn-danger delete" onclick="return alert('Are You sure?')" href="/<%=table%>/delete/<%=data[i].id%>">Delete</a>
+                            <a class="btn btn-success edit" href="/ogtitanic/edit/<%=data[i].id%>">Edit</a>
+                            <a class="btn btn-danger delete" onclick="return alert('Are You sure?')" href="/ogtitanic/delete/<%=data[i].id%>">Delete</a>
                         </td>
                     </tr>
                 <% } %>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Edit <%= upper %></title>
+    <title>Edit Titanic</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
 <body class="container" style="margin-top: 50px;">
@@ -14,10 +14,10 @@
 
 <div class="card">
     <div class="card-header">
-        Edit <%= upper %>
+        Edit Titanic
     </div>
     <div class="card-body">
-        <form action="/<%= table %>/update/<%= data.id %>" method="post">
+        <form action="/ogtitanic/update/<%= data.id %>" method="post">
             <input type="hidden" name="id" value="<%= data.id %>">
             <% fields.forEach(field => {
                 if (field.name === 'id') return;
@@ -28,7 +28,7 @@
             </div>
             <% }) %>
             <div class="form-group">
-                <a class="btn btn-success edit" href="/<%= table %>/">Cancel</a>
+                <a class="btn btn-success edit" href="/ogtitanic/">Cancel</a>
                 <input type="submit" class="btn btn-info" value="Update"/>
             </div>
         </form>

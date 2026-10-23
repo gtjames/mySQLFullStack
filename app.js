@@ -13,6 +13,8 @@ var usersRouter   = require('./routes/users');
 var membersRouter = require('./routes/members');
 var crudRouter    = require('./routes/crud');
 var proxyRouter   = require('./routes/proxy');
+var ogTitanic     = require('./routes/ogTitanic');
+var rtTitanic     = require('./routes/rtTitanic');
 
 var app = express();
 
@@ -41,9 +43,14 @@ app.use('/users',   usersRouter);
 app.use('/members', membersRouter);
 app.use('/proxy',   proxyRouter);
 
+app.use('/ogTitanic', ogTitanic);    //  titanicRouter);
+app.use('/rtTitanic', rtTitanic);    //  titanicRouter);
+
 app.use('/titanic', crudRouter);    //  titanicRouter);
 app.use('/books',   crudRouter);    //  booksRouter);
 app.use('/crimes',  crudRouter);    //  crimesRouter);
+app.use('/nba',     crudRouter);    //  TODO: nbaRouter);
+app.use('/accident',     crudRouter);    //  TODO: nbaRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
