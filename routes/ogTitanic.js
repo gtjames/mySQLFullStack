@@ -112,18 +112,6 @@ router.post('/update/:id', (req, res, next) => {
     }
 })
 
-// delete member
-router.get('/delete/(:id)', (req, res, next) => {
-    dbConn.query(`DELETE FROM examples.titanic WHERE id = ${req.params.id}`, (err, result) => {
-        if (err) {
-            req.flash('error', `${err.sqlMessage} -- ${err.sql}`);      // set flash message
-        } else {
-            req.flash('success', `Member successfully deleted! ID = ${req.params.id}`) // set flash message
-        }
-        res.redirect('/ogtitanic')        // redirect to members page
-    })
-})
-
 // search wardList
 router.post('/search', function (req, res, next) {
     dbConn.query(
@@ -135,6 +123,18 @@ router.post('/search', function (req, res, next) {
                 res.render('ogtitanic', { data: rows, fields: displayFields });      //  JSON data of the list of members
             }
         });
+})
+
+// delete member
+router.get('/delete/(:id)', (req, res, next) => {
+    dbConn.query(`DELETE FROM examples.titanic WHERE id = ${req.params.id}`, (err, result) => {
+        if (err) {
+            req.flash('error', `${err.sqlMessage} -- ${err.sql}`);      // set flash message
+        } else {
+            req.flash('success', `Member successfully deleted! ID = ${req.params.id}`) // set flash message
+        }
+        res.redirect('/ogtitanic')        // redirect to members page
+    })
 })
 
 module.exports = router;
