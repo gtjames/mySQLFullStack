@@ -14,7 +14,6 @@ var membersRouter = require('./routes/members');
 var crudRouter    = require('./routes/crud');
 var proxyRouter   = require('./routes/proxy');
 var ogTitanic     = require('./routes/ogTitanic');
-var rtTitanic     = require('./routes/rtTitanic');
 
 var app = express();
 
@@ -44,7 +43,6 @@ app.use('/members', membersRouter);
 app.use('/proxy',   proxyRouter);
 
 app.use('/ogTitanic', ogTitanic);    //  titanicRouter);
-app.use('/rtTitanic', rtTitanic);    //  titanicRouter);
 
 app.use('/titanic', crudRouter);    //  titanicRouter);
 app.use('/books',   crudRouter);    //  booksRouter);
