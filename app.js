@@ -6,14 +6,15 @@ var logger = require('morgan');
 
 var flash = require('express-flash');
 var session = require('express-session');
-var connection  = require('./lib/db');
 
 var indexRouter   = require('./routes/index');
+
 var usersRouter   = require('./routes/users');
 var membersRouter = require('./routes/members');
 var crudRouter    = require('./routes/crud');
 var proxyRouter   = require('./routes/proxy');
 var ogTitanic     = require('./routes/ogTitanic');
+var ogNba         = require('./routes/ogNba');
 
 var app = express();
 
@@ -43,12 +44,15 @@ app.use('/members', membersRouter);
 app.use('/proxy',   proxyRouter);
 
 app.use('/ogTitanic', ogTitanic);    //  titanicRouter);
+app.use('/ogNBA',     ogNba);        //  nbaRouter);
 
+//  CRUD routes TODO:  All CRUD routes are handled by the same router, which is a generic CRUD router that can handle multiple datasets.  The dataset is determined by the first part of the URL path (e.g., /titanic, /books, /crimes, etc.).  Each dataset has its own collection in the database, and the CRUD router will perform operations on the appropriate collection based on the URL path.
 app.use('/titanic', crudRouter);    //  titanicRouter);
 app.use('/books',   crudRouter);    //  booksRouter);
 app.use('/crimes',  crudRouter);    //  crimesRouter);
-app.use('/nba',     crudRouter);    //  TODO: nbaRouter);
-app.use('/accident',     crudRouter);    //  TODO: nbaRouter);
+app.use('/nba',     crudRouter);    //  IDEA: nbaRouter);
+app.use('/accident',crudRouter);    //  NOTE: nbaRouter);
+app.use('/products',crudRouter);    //  NOTE: nbaRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

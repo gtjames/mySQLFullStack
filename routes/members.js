@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var {getRows, dbConn}  = require('../lib/db');         //  yes, this is our connection variable from the db.js file
+var {dbConn}  = require('../lib/db');         //  yes, this is our connection variable from the db.js file
 
 //  display members page when the url is "members/"
 //  remember back in app.js we defined all /members requests would come here

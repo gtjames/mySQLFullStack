@@ -9,7 +9,7 @@ router.get('/', (req, res, next) => getRows(req, res, next));
 
 // add page
 //      URL:            /{object}/add
-router.get('/add', (req, res, next) => createRow(req, res, next));
+router.get('/add', (req, res, next) => createRow(req, res, next));  // TODO: sfg
 
 // add new
 //      this is a POST request. We are receiving data back from the client

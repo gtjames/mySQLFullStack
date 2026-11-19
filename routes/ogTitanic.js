@@ -20,7 +20,7 @@ var displayFields = [
 router.get('/', (req, res, next) => {
     //  We are just using plain old SQL to hit the database.
     //                                                  OH LOOK! a callback function
-    dbConn.query('SELECT * FROM examples.titanic ORDER BY lastName, firstName', (err, rows) => {
+    dbConn.query('SELECT * FROM examples.titanic', (err, rows) => {
         if (err) {
             req.flash('error', err);
             // render to views/members/index.ejs
@@ -33,7 +33,7 @@ router.get('/', (req, res, next) => {
 });
 
 router.get('/get/(:id)', (req, res, next) => {
-    dbConn.query('SELECT * FROM examples.titanic WHERE id = ' + req.params.id + ' ORDER BY lastName, firstName', (err, rows) => {
+    dbConn.query('SELECT * FROM examples.titanic WHERE id = ' + req.params.id, (err, rows) => {
         if (err) {
             res.send({ data: err });          //  notice all data back to the client is in a JSON object
         } else {
@@ -95,7 +95,7 @@ router.get('/edit/(:id)', function (req, res, next) {
 router.post('/update/:id', (req, res, next) => {
     req.body.id = req.params.id;
 
-    if (req.body.first.length === 0 || req.body.last.length === 0) {
+    if (req.body.firstName.length === 0 || req.body.lastName.length === 0) {
         req.flash('error', "Please enter First and Last Name"); // set flash message
         res.render('ogtitanic/edit', {fields: displayFields, data: req.body });  // render to add.ejs with flash message
     } else {            // if no error
